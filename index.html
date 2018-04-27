@@ -36,36 +36,7 @@
     <script>
       var isNight = false;
     
-      var setFace = function(face) {
-        if (face=="day") {
-          document.getElementById('day').classList.remove("hidden");
-          document.getElementById('night').classList.add("hidden");
-          document.getElementById('main').classList.remove("black");
-        } else {
-          document.getElementById('day').classList.add("hidden");
-          document.getElementById('night').classList.remove("hidden");
-          document.getElementById('main').classList.add("black");
-        }
-      }
-    
-      var night = {
-        start: {hours:14, minutes:53},
-        end: {hours:14, minutes:51}
-      }
-        
-       var noSleep = new NoSleep();
-        
-      var setFullscreen = function(activate) {
-        if ( activate ) {
-          fscreen.requestFullscreen(document.documentElement);
-          noSleep.enable();
-        } else {
-          fscreen.exitFullscreen();
-          noSleep.disable();
-        }
-      }
-        
-      var myVar = setInterval(function() {
+      var setFace = function() {
         var d = new Date();
         var hours=d.getHours();
         var minutes=d.getMinutes();
@@ -86,18 +57,39 @@
           isDay= !(now_m >=nightstart_m && now_m < daystart_m);
         }
         
-        
-        
         console.log(d);
         
         if (isDay) {
-          setFace("day")
+          document.getElementById('day').classList.remove("hidden");
+          document.getElementById('night').classList.add("hidden");
+          document.getElementById('main').classList.remove("black");
         } else {
-          setFace("night")
+          document.getElementById('day').classList.add("hidden");
+          document.getElementById('night').classList.remove("hidden");
+          document.getElementById('main').classList.add("black");
         }
         
        
-      }, 2000);  
+      }
+    
+      var night = {
+        start: {hours:14, minutes:53},
+        end: {hours:14, minutes:51}
+      }
+        
+       var noSleep = new NoSleep();
+        
+      var setFullscreen = function(activate) {
+        if ( activate ) {
+          fscreen.requestFullscreen(document.documentElement);
+          noSleep.enable();
+        } else {
+          fscreen.exitFullscreen();
+          noSleep.disable();
+        }
+      }
+        
+      var myVar = setInterval(setFace, 55000);  
       
      
       
@@ -109,14 +101,16 @@
    <object id="day" class="faces" style="" data="images/sonne.svg" type="image/svg+xml"></object>
    <object id="night" class="faces hidden"  data="images/moon.svg" type="image/svg+xml"></object>
 
-   <img style="width:5%; position:absolute; top:0px; right:0px;" src="images/settings-cog.svg" type="image/svg+xml" onclick="document.getElementById('popup').classList.toggle('hidden');"></img>
+   <img style="width:5%; position:absolute; top:0px; right:0px;" src="images/settings-cog.svg" type="image/svg+xml" onclick="document.getElementById('popup').classList.toggle('hidden');setFace();"></img>
    
     <div id="popup" class="hidden" style="position:absolute; top:5%; right:5%; padding:1em; background:#aaaaaa">
-      <span onclick="document.getElementById('popup').classList.add('hidden');"
+      <span onclick="document.getElementById('popup').classList.add('hidden');setFace();"
         style="font-weight:bold;position:absolute;right:0;top:0">&times;</span>
       <img style="height:1em" src="images/sonne.svg"></img><input id="day_start" type="time" value="08:00"><br>
       <img style="height:1em" src="images/moon.svg"><input id="night_start" type="time" value="20:00"><br>
       <input type="checkbox" id="fullscreen" onclick="setFullscreen(this.checked)"> Fullscreen
     </div>
+    
+    <script>setFace();</script>
   </body>
 </html>
