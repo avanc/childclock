@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Avoid IE compatibility mode, as it breaks layout -->
+    <link rel="icon" href="favicon.ico">
+
+    <title>Child Clock</title>
+
+    <style type="text/css" media="screen">
+      body { background:#ffffffff; margin:0 }
+      .faces {
+        display:block; position:absolute;
+        top:5%; left:5%; width:90%; height:90%;
+      }
+      
+      .black { background:#000000; }
+      .hidden {display:none}
+      
+      #dsapopup {
+        position:fixed;
+        top: 50%;
+        left: 50%;
+        width:30em;
+        height:18em;
+        margin-top: -9em; /*set to a negative number 1/2 of your height*/
+        margin-left: -15em; /*set to a negative number 1/2 of your width*/
+        background-color: #f3f3f3;
+      }
+    </style>
+
+    <script>
+      var isNight = false;
+    
+      var setFace = function(face) {
+        if (face=="day") {
+          document.getElementById('day').classList.remove("hidden");
+          document.getElementById('night').classList.add("hidden");
+          document.getElementById('main').classList.remove("black");
+        } else {
+          document.getElementById('day').classList.add("hidden");
+          document.getElementById('night').classList.remove("hidden");
+          document.getElementById('main').classList.add("black");
+        }
+      }
+    
+      var night = {
+        start: {hours:14, minutes:53},
+        end: {hours:14, minutes:51}
+      }
+        
+      var myVar = setInterval(function() {
+        var d = new Date();
+        var hours=d.getHours();
+        var minutes=d.getMinutes();
+        var now_m= minutes + 60 * hours;
+        
+        var day_start = document.getElementById('day_start').value.split(":");
+        var night_start = document.getElementById('night_start').value.split(":");
+        
+        var daystart_m= parseInt(day_start[1]) + 60 * parseInt(day_start[0]);
+        var nightstart_m= parseInt(night_start[1]) + 60 * parseInt(night_start[0]);
+         
+        
+        var isDay;
+        
+        if (nightstart_m>daystart_m) {
+          isDay= now_m >=daystart_m && now_m < nightstart_m;
+        } else {
+          isDay= !(now_m >=nightstart_m && now_m < daystart_m);
+        }
+        
+        
+        
+        console.log(d);
+        
+        if (isDay) {
+          setFace("day")
+        } else {
+          setFace("night")
+        }
+        
+       
+      }, 2000);  
+      
+      var d = new Date();
+      
+    </script>
+
+  </head>
+
+  <body id="main">
+   <object id="day" class="faces" style="" data="images/sonne.svg" type="image/svg+xml"></object>
+   <object id="night" class="faces hidden"  data="images/moon.svg" type="image/svg+xml"></object>
+
+   <img style="width:2%; position:absolute; top:0px; right:0px;" src="images/settings-cog.svg" type="image/svg+xml" onclick="document.getElementById('popup').classList.toggle('hidden');"></img>
+   
+    <div id="popup" class="hidden" style="position:absolute; top:0px; right:0px;">
+      <span onclick="document.getElementById('popup').classList.add('hidden');"
+        style="font-weight:bold;position:absolute;right:0;top:0">&times;</span>
+      <img style="height:1em" src="images/sonne.svg"></img><input id="day_start" type="time" value="8:00"><br>
+      <img style="height:1em" src="images/moon.svg"><input id="night_start" type="time" value="20:00">
+    </div>
+  </body>
+</html>
