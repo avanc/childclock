@@ -15,6 +15,7 @@
         top:5%; left:5%; width:90%; height:90%;
       }
       input[type='time'] { font-size: 24px; }
+      input[type='checkbox'] { transform:scale(2, 2); }
       .black { background:#000000; }
       .hidden {display:none}
       
@@ -101,9 +102,9 @@
    <object id="day" class="faces" style="" data="images/sonne.svg" type="image/svg+xml"></object>
    <object id="night" class="faces hidden"  data="images/moon.svg" type="image/svg+xml"></object>
 
-   <img style="width:5%; position:absolute; top:0px; right:0px;" src="images/settings-cog.svg" type="image/svg+xml" onclick="document.getElementById('popup').classList.toggle('hidden');setFace();"></img>
+   <img style="width:10%; position:absolute; top:0px; right:0px;" src="images/settings-cog.svg" type="image/svg+xml" onclick="document.getElementById('popup').classList.toggle('hidden');setFace();"></img>
    
-    <div id="popup" class="hidden" style="position:absolute; top:5%; right:5%; padding:1em; background:#aaaaaa">
+    <div id="popup" class="hidden" style="position:absolute; top:10%; right:10%; padding:1em; background:#aaaaaa">
       <span onclick="document.getElementById('popup').classList.add('hidden');setFace();"
         style="font-weight:bold;position:absolute;right:0;top:0">&times;</span>
       <img style="height:1em" src="images/sonne.svg"></img><input id="day_start" type="time" value="08:00"><br>
