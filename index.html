@@ -31,6 +31,8 @@
     </style>
 
     <script src="3rdparty/fscreen.js"></script>
+    <script src="3rdparty/NoSleep.js"></script>
+    
     <script>
       var isNight = false;
     
@@ -51,11 +53,15 @@
         end: {hours:14, minutes:51}
       }
         
+       var noSleep = new NoSleep();
+        
       var setFullscreen = function(activate) {
         if ( activate ) {
           fscreen.requestFullscreen(document.documentElement);
+          noSleep.enable();
         } else {
           fscreen.exitFullscreen();
+          noSleep.disable();
         }
       }
         
@@ -93,7 +99,7 @@
        
       }, 2000);  
       
-      var d = new Date();
+     
       
     </script>
 
