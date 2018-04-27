@@ -30,6 +30,7 @@
       }
     </style>
 
+    <script src="3rdparty/fscreen.js"></script>
     <script>
       var isNight = false;
     
@@ -48,6 +49,14 @@
       var night = {
         start: {hours:14, minutes:53},
         end: {hours:14, minutes:51}
+      }
+        
+      var setFullscreen = function(activate) {
+        if ( activate ) {
+          fscreen.requestFullscreen(document.documentElement);
+        } else {
+          fscreen.exitFullscreen();
+        }
       }
         
       var myVar = setInterval(function() {
@@ -100,7 +109,8 @@
       <span onclick="document.getElementById('popup').classList.add('hidden');"
         style="font-weight:bold;position:absolute;right:0;top:0">&times;</span>
       <img style="height:1em" src="images/sonne.svg"></img><input id="day_start" type="time" value="08:00"><br>
-      <img style="height:1em" src="images/moon.svg"><input id="night_start" type="time" value="20:00">
+      <img style="height:1em" src="images/moon.svg"><input id="night_start" type="time" value="20:00"><br>
+      <input type="checkbox" id="fullscreen" onclick="setFullscreen(this.checked)"> Fullscreen
     </div>
   </body>
 </html>
